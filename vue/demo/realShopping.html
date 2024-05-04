@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+    <div id="app">
+
+        <table>
+            <thead>
+                <tr>
+                    <td><input type="checkbox" v-model="data.selected" @change="selectAll"></td>
+                    <td>商品</td>
+                    <td>单价</td>
+                    <td>库存</td>
+                    <td colspan="2">操作</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(item, index) in data.list" :key="item.id">
+                    <td> <input type="checkbox" @change="checkselect" :value="item" v-model="data.checkboxList"></td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.price}}</td>
+                    <td>{{item.stock}}</td>
+                    <td>
+                        <button @click="sub(item)">-</button>{{item.number}}
+                        <button @click="add(item)">+</button>
+                    </td>
+                    <td><button @click="del(index,item.id)">删除</button></td>
+
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td>总价:{{totalPrice()}}</td>
+                </tr>
+            </tfoot>
+        </table>
+        <ul>
+            <li v-for="(item, index) in data.list" :key="item.id">{{item.name}}
+
+            </li>
+        </ul>
+    </div>
+    <script type="module">
+        //解构，把Vue的方法，属性赋值给变量
+        import { createApp, reactive, ref } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js'
+
+        createApp({
+            setup() {
+                const data = reactive({
+                    selected: false,
+                    checkboxList: [],
+                    list: [{
+                        id: 1,
+                        name: "pen",
+                        price: 10,
+                        number: 1,
+                        stock: 3
+                    },
+                    {
+                        id: 2,
+                        name: "mouse",
+                        price: 20,
+                        number: 2,
+                        stock: 5
+                    },
+                    {
+                        id: 3,
+                        name: "keybord",
+                        price: 60,
+                        number: 5,
+                        stock: 113
+                    }
+
+                    ],
+                })
+
+                const add = (value) => {
+                    if (value.number != value.stock) {
+                        value.number++
+                    }
+                }
+                const sub = (value) => {
+                    console.log(value.number)
+                    if (value.number != 1) {
+                        value.number--
+                    }
+
+
+                }
+                const clear = () => {
+                    data.list = []
+                }
+                const selectAll = () => {
+                    if (data.selected == true) {
+                        data.checkboxList = data.list
+                    } else {
+                        data.checkboxList = []
+                    }
+                }
+                const checkselect = () => {
+                    if (data.checkboxList.length == data.list.length && data.checkboxList.length != 0) {
+                        data.selected = true
+                    }
+                    else {
+                        data.selected = false
+                    }
+                }
+
+                const totalPrice = () => {
+                    let total = 0
+                    for (let i = 0; i < data.checkboxList.length; i++) {
+                        total += data.checkboxList[i].price * data.checkboxList[i].number
+
+                    }
+                    return total
+                }
+
+                const del = (index, id) => {
+                    data.list.splice(index, 1)
+                    //第一个参数是数组的元素，第二个是索引
+                    let newArry = data.checkboxList.filter((item, index) => {
+                        return item.id != id
+                    })
+                    data.checkboxList = newArry
+                    checkselect()
+
+
+                }
+                return {
+
+                    data,
+                    add,
+                    sub,
+                    clear,
+                    selectAll,
+                    checkselect,
+                    totalPrice,
+                    del,
+
+                }
+            }
+        }).mount("#app")
+
+    </script>
+
+</body>
+
+</html>

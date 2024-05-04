@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <ul>
+            <li v-for=" value in data.number">
+                {{value}}
+            </li>
+        </ul>
+
+        <ul>
+            <li v-for=" (value, index) in data.number">
+                {{value}} + {{index}}
+            </li>
+        </ul>
+        <ul>
+            <li v-for=" (value, key,index) in data.user">
+                {{value}} + {{key}}+{{index}}
+            </li>
+        </ul>
+        <ul>
+            <template v-for=" (value, key,index) in data.user">
+                <li v-if="index==3">
+                    {{value}} + {{key}}+{{index}}
+                </li>
+
+            </template>
+        </ul>
+
+        <ul>
+            <li v-for=" (value, index) in data.teacher" :title="value.name" :key="value.id">
+                {{value.id}}+{{value.name}} + {{index}}
+            </li>
+        </ul>
+    </div>
+    <script type="module">
+        //解构，把Vue的方法，属性赋值给变量
+        import { createApp, reactive, ref } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js'
+
+        createApp({
+            setup() {
+                const data = reactive(
+                    {
+                        number: [122, 221, 2123],
+                        user: {
+                            name: "uu",
+                            age: 16
+
+                        },
+                        teacher: [
+                            { id: 1, name: "uu1" },
+                            { id: 2, name: "uu2" }
+                        ]
+
+                    }
+                )
+                return {
+                    data
+                }
+
+            }
+        }).mount("#app")
+
+    </script>
+
+</body>
+
+</html>

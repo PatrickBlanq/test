@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="axios.min.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <select v-model="data.type">
+            <option value="0">请选择</option>
+            <option value="1">ID</option>
+            <option value="2">标题</option>
+        </select>
+
+        <input type="text" v-model="data.content">
+        <button @click="search">搜索</button>
+        <ul v-for="(item, index) in data.list" :key="index"><li >
+{{item}}
+        </li></ul>
+    </div>
+    <script type="module">
+        //解构，把Vue的方法，属性赋值给变量
+        import { createApp, reactive, ref, watch, computed } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js'
+
+        createApp({
+            setup() {
+
+                const data = reactive({
+                    type: "0",
+                    content: "",
+                    list: [],
+                })
+
+                const search = () => {
+                    data.list=[]
+                    console.log(data.type, data.content)
+                    if (data.type == "1") {
+                        let id = data.content
+                        axios.get(`http://127.0.0.1:777/article/get/id/${id}`).then(response =>{
+                            console.log(response.data)
+                            if(response.data.status =="success"){
+                                data.list.push(response.data.data)
+                            }
+                        }).catch(err=> console.log(`err:${err}`))
+                    }
+                    if (data.type == "2") {
+                        let param = {
+                            title: data.content
+                        }
+                        axios.post(`http://127.0.0.1:777/article/postJson/search`,param).then(response =>{
+                            console.log(response.data)
+                            if(response.data.status =="success"){
+                                for (let i = 0; i < response.data.data.length; i++) {
+                                    data.list.push(response.data.data[i])
+                                    
+                                }
+                            }
+                        }).catch(err=> console.log(`err:${err}`))
+                    }
+                }
+
+                return {
+
+                    data,
+                    search
+
+
+
+                }
+            }
+        }).mount("#app")
+
+    </script>
+
+</body>
+
+</html>

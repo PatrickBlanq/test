@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        {{data.x}}
+        <h3>{{add()}}</h3>
+        <h3>{{add()}}</h3>
+        <h3>{{sub}}</h3>
+        <h3>{{sub}}</h3>
+<input type ="text" v-model="data.x">
+    </div>
+    <script>
+        //解构，把Vue的方法，属性赋值给变量
+        const { createApp, reactive, computed } = Vue
+        createApp({
+            setup() {
+                const data = reactive({
+                    x: 10,
+                    y: 20
+                })
+                let add = () => {
+                    console.log("add")
+                    return data.x + data.y
+                }
+                const sub = computed(() => {
+                    console.log("sub")
+                    return data.x - data.y
+                })
+                return {
+                    data,
+                    add,
+                    sub
+                }
+            }
+        }).mount("#app")
+
+    </script>
+
+</body>
+
+</html>

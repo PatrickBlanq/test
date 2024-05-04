@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let plus = function add(x, y) {
+            return x + y
+        }
+        console.log(plus(1, 2))
+
+        let plus1 = (x, y) => {
+            return x + y
+        }
+        console.log(plus1(6, 9))
+
+        let plus2 = (x, y) => x + y
+        console.log(plus2(4, 5))
+
+        let plus3 = x => x + 6
+        console.log(plus3(4))
+
+
+        let arr4 = [1, 2, 40, 8, 56]
+        let newArr4 = arr4.filter(value => value > 12)
+        console.log(newArr4)
+        arr4.forEach((value, index) => console.log(value + ":" + index))
+
+        let teacher = new Map([
+            ["name", "Dell"],
+            ["gender", "男"]
+        ])
+        teacher.set("hight", 175)
+        console.log(teacher)
+        let arr5 = Array.from(teacher)
+        console.log(arr5)
+        console.log("------")
+        for (let item of teacher) {
+            console.log(item)
+        }
+        console.log("------")
+        for (let [key, value] of teacher) {
+            console.log(key + ":" + value)
+        }
+        console.log("------")
+        teacher.forEach((value, key) => console.log(key + "/" + value))
+
+        let fruits = new Set(["orange", "banana", "apple"])
+        console.log(fruits)
+        fruits.add("mango")
+        console.log(fruits)
+        //扩展运算符时展开可迭代对象。
+        console.log("---扩展---")
+        let address = "jilin"
+        console.log([...address])
+        let person = {
+            name: "zhangsan",
+            age: 32
+        }
+        person.height = 175
+        person.age = 33
+        delete person.height
+        console.log(person)
+
+        let has = "age" in person
+        console.log(has)
+        //获取对象属性的名
+        console.log(Object.keys(person))
+
+        console.log("------")
+        for (let key in person) {
+            console.log(key + "=" + person[key])
+        }
+
+        console.log("---1---")
+        //object entries获取对象的属性的键值对数组，用它将对象转为数组
+        console.log(Object.entries(person))
+        console.log("------")
+        Object.entries(person).forEach(([value, key]) => console.log(value, key))
+
+
+        console.log("---1---")
+        class Worker {
+            name
+            #age
+            constructor(name, age) {
+                this.name = name
+                this.#age = age
+            }
+            get age() {
+                return this.#age
+            }
+            set age(value) {
+                this.#age = value
+            }
+
+            getInfo() {
+                return `name: ${this.name} and age=${this.#age}`
+            }
+
+        }
+        let wo = new Worker("uu", 40)
+        console.log(wo)
+        wo.age = 60
+        console.log(wo.age)
+        console.log(wo.getInfo())
+        console.log("------")
+        class erzi extends Worker {
+            height
+            constructor(name, age, height) {
+                super(name, age)
+                this.height = height
+            }
+            work() {
+                console.log(`${this.name} is working`)
+            }
+            work1() {
+                console.log(`${this.height} is working`)
+            }
+        }
+        let sunzi = new erzi("sunzi", 16, 175)
+        sunzi.work()
+        console.log(sunzi.height)
+        //解构可以从数组或对象中提取值，并赋值给变量。
+        let [x, y] = [1, 2]
+        console.log(x, y)
+        let [z] = [1, 2, 3]
+        console.log(z)
+        let [a, , b] = [1, 2, 3, 4]
+        console.log(a, b)
+        let [c, , ...d] = [1, 2, 3, 4, 5, 6]
+        console.log(c, d)
+        //解构中的默认值
+        let [ab, cd = 200] = [100]
+        console.log(ab, cd)
+        //两数交换
+        let myage = 10
+        let myheight = 20;
+        [myage, myheight] = [myheight, myage]
+        console.log(myage, myheight)
+        //解构类的属性
+        let { name } = sunzi
+        console.log(name)
+        //解构类的属性，并起一个别名
+        let { name: sunziName } = sunzi
+        console.log(sunziName)
+        let { work1 } = sunzi
+        work1()
+        console.log("---1---")
+        console.log("------")
+        console.log("---1---")
+        console.log("------")
+        console.log("---1---")
+        console.log("------")
+    </script>
+</body>
+
+</html>

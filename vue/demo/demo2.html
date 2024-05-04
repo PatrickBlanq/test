@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        {{msg}}
+        <h1>{{web.name}}</h1>
+        <h1>{{web.url}}</h1>
+        <h2>{{number}}</h2>
+        {{arr}}
+    </div>
+    <script type="module">
+        //解构，把Vue的方法，属性赋值给变量
+        import { createApp, reactive, ref } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js'
+
+        createApp({
+            setup() {
+                const number = ref(10)
+                number.value = 20
+
+                const web = reactive({
+                    name: "vue",
+                    url: "vue.com"
+                })
+                web.url = "myurl.com"
+                const arr = ref([1, 2, 3])
+                return {
+                    msg: "SUCCESS",
+                    number,
+                    arr,
+                    web
+                }
+            }
+        }).mount("#app")
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        {{msg}}
+        <h1>{{web.name}}</h1>
+
+        <h3 v-text="web.name"></h3>
+        <h3 v-html="web.url"></h3>
+    </div>
+    <script>
+        //解构，把Vue的方法，属性赋值给变量
+        const { createApp, reactive } = Vue
+        createApp({
+
+
+            setup() {
+                const web = reactive({
+                    name: "vue",
+                    url: "<i style='color:blue;'>www.baidu.com</i>"
+                })
+
+                return {
+                    msg: "SUCCESS",
+                    web
+                }
+            }
+        }).mount("#app")
+
+    </script>
+
+</body>
+
+</html>

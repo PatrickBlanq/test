@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+    <div id="app">
+
+        <input type="text" v-model="data.content">
+        <button @click="add()">add</button>
+        <ul>
+            <li v-for="(value,index) in data.list">
+                {{value}} <button @click="del(index)">delete</button>
+            </li>
+        </ul>
+        <button @click="clear">clear</button>
+        {{data.list.length}}
+    </div>
+    <script type="module">
+        //解构，把Vue的方法，属性赋值给变量
+        import { createApp, reactive, ref } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js'
+
+        createApp({
+            setup() {
+                const data = reactive({
+                    content: "www.baiduc.om",
+                    list: ["draw", "work"]
+                })
+
+                const add = () => {
+
+                    data.list.push(data.content)
+                    console.log(data.list)
+                }
+                const del = (index) => {
+                    data.list.splice(index, 1)
+
+                }
+const clear =()=>{
+    data.list=[]
+}
+                return {
+
+                    data,
+                    add,
+                    del,
+                    clear
+
+                }
+            }
+        }).mount("#app")
+
+    </script>
+
+</body>
+
+</html>

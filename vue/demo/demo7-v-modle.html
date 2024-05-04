@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <h1>文本框+{{data.text}}</h1>
+        <h1>单选+{{data.radio}}</h1>
+        <h1>复选框+{{data.checkbox}}</h1>
+        <h1>记住密码+{{data.remenber}}</h1>
+        <h1>复选框+{{data.select}}</h1>
+        <input type="text" v-model="data.text">
+        <input type="text" v-model.lazy="data.text">
+
+        <input type="radio" v-model="data.radio" value="1">写作
+        <input type="radio" v-model="data.radio" value="2">画画
+
+        <input type="checkbox" v-model="data.checkbox" value ="a">写作
+        <input type="checkbox" v-model="data.checkbox" value ="b">画画
+        <input type="checkbox" v-model="data.checkbox" value ="c">运动
+
+        <input type="checkbox" v-model="data.remenber">记住密码
+
+        <select v-model="data.select">
+            <option value="">请选择</option>
+            <option value="A">xiezuo</option>
+            <option value="B">draw</option>
+        </select>
+    </div>
+    <script type="module">
+        //解构，把Vue的方法，属性赋值给变量
+        import { createApp, reactive, ref } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js'
+
+        createApp({
+            setup() {
+                const data = reactive(
+                    {
+                        text: "wangzhi.com",
+                        radio: "",
+                        checkbox: [],
+                        remenber: false,
+                        select: ""
+
+                    }
+                )
+                return {
+                    data
+                }
+
+            }
+        }).mount("#app")
+
+    </script>
+
+</body>
+
+</html>

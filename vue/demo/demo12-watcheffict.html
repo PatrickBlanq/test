@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <select v-model="hobby">
+            <option value="">请选择</option>
+            <option value="writting">writting</option>
+            <option value="draw">draw</option>
+            <option value="work">work</option>
+        </select>
+        <hr>
+        <select v-model="date.year">
+            <option value="">请选择</option>
+            <option value="2023">2023</option>
+            <option value="2024">2024</option>
+        </select>
+        <select v-model="date.month">
+            <option value="">请选择</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+        </select>
+    </div>
+    <script>
+        //解构，把Vue的方法，属性赋值给变量
+        const { createApp, reactive, ref, watch, watchEffect } = Vue
+        createApp({
+            setup() {
+                const hobby = ref("")
+                const date = reactive({
+                    year: "2023",
+                    month: "10"
+                })
+                watchEffect(() => {
+
+                    if (hobby.value == "draw") {
+                        console.log(hobby)
+                    }
+                    if (date.year == "2023") {
+                        console.log(date.year)
+                    }
+                })
+
+                return {
+                    hobby,
+                    date
+                }
+            }
+        }).mount("#app")
+
+    </script>
+
+</body>
+
+</html>

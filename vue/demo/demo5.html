@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        {{msg}}
+
+        {{web.show}}
+        <h2 v-show="web.show">{{number}}</h2>
+        <p v-if="web.show">ifshow元素渲染。dom添加</p>
+        {{arr}}
+        <button @click="toggle()">toggle</button>
+        <p v-if="web.user<1000">一般</p>
+        <p v-else-if="web.user>1000">优秀</p>
+    </div>
+    <script type="module">
+        //解构，把Vue的方法，属性赋值给变量
+        import { createApp, reactive, ref } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js'
+
+        createApp({
+            setup() {
+                const number = ref(10)
+                number.value = 20
+
+                const web = reactive({
+                    show: true,
+                    user: 5000
+                })
+
+                const toggle = () => web.show = !web.show
+                const arr = ref([1, 2, 3])
+                return {
+                    msg: "SUCCESS",
+                    number,
+                    arr,
+                    web,
+                    toggle
+                }
+            }
+        }).mount("#app")
+
+    </script>
+
+</body>
+
+</html>
