@@ -1,5 +1,5 @@
 import { createApp } from 'vue'
-import './style.css'
 import App from './App.vue'
+import Collapse from './components/collapse.vue'
 
-createApp(App).mount('#app')
+createApp(Collapse).mount('#app')

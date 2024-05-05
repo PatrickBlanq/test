@@ -1,54 +1,47 @@
 <script setup>
-import Header from "./components/header.vue"
-import Footer from "./components/footer.vue"
-import { reactive, ref, provide } from "vue";
-//以对象传递
-const propsWeb = reactive({
-    user: 10,
-    url: "djalk.com"
-})
-const add = () => {
-    propsWeb.user++;
-    //console.log(propsWeb.user);
-}
+import { reactive, ref, provide, inject } from "vue";
+import Collapse from "./components/Collapse.vue"
 
-//子传父
-const web = reactive({
-    name: "uu",
-    url: "uu.com"
-})
+const group = reactive([{
+    first: "group1",
+    list: [
+        { name: "11", show: true, },
+        { name: "12", show: true, }
+    ],
 
-//子传父，对象和方法
-const emitsGetweb = (data) => {
-    web.url = data.url
-}
-const user = ref(0)
-const emitsUserAdd = (data) => {
-    console.log(data);
-    user.value += data
-}
-const userAdd = () => {
-    user.value++
-}
-//跨组件传值，第一个参数是提供者的名称或者说是注入者的key，其后是要传递的数据
-provide("provideWeb", web)
-provide("provideUser", user)
-//传递函数
-provide("provideFuncUserAdd", userAdd)
+},
+{
+    first: "group2",
+    list: [
+        { name: "21", show: true, },
+        { name: "22", show: true, }
+    ],
 
+
+}]
+)
+/* const obj = reactive({
+    group1: "group1",
+    list: [
+        { name: "1", Show: true, },
+        { name: "2", Show: true, }
+    ],
+    group3: "group3",
+    Show: true,
+
+}) */
+
+//provide("provideObj", obj)
 </script>
 
 <template>
-    <!-- 父传子数组传递 -->
-    <!--Header是 自闭和标签形式 -->
-    <Header propsName="uu" propsUrl="baidu.com" @getWeb="emitsGetweb" @userAdd="emitsUserAdd" />
-    <!-- 子组件上的自定义事件是getWeb，父组件定义接受方法是emitsGetweb -->
+    <div v-for="item in group" :key="item.id">
+        <Collapse :="item"></Collapse>
 
-    app.vue
-    <Footer :="propsWeb" />
-    <button @click="add">添加用户</button>
-    <br>
-    {{ web.url }}--{{ user }}
+    </div>
+
+
+
 </template>
 
 <style scoped></style>

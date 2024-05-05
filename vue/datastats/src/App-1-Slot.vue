@@ -17,7 +17,7 @@ import { reactive, ref, provide } from "vue";
         <!--  <template v-slot:url> -->
         <!--         <template #url="data">
             {{ data.title }} - {{ data.user }} -->
-        <!-- 作用于插槽 -->
+        <!-- 作用域插槽 -->
         <!-- toRef是把对象的某个属性转换称响应式数据，torRefs是把对象所有属性转换 -->
         <template #url="{ title, user }">
             {{ title }} - {{ user }}

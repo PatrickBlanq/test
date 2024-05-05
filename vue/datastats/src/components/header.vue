@@ -3,7 +3,7 @@ import Nav from "./nav.vue"
 import { inject } from "vue";
 const props = defineProps(["propsName", "propsUrl"])
 //console.log(props)
-//数组内的元素，是将触发自定义事件的名称
+//defineEmits的参数是一个数组，数组内的元素，是将触发自定义事件的名称
 const emits = defineEmits(["getWeb", "userAdd"])
 emits("getWeb", { name: "wohaorende", url: "wohaorende.com" })
 const add = () => {
