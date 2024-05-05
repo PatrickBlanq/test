@@ -34,6 +34,32 @@ const group = reactive([{
 //provide("provideObj", obj)
 </script>
 
+<!-- const group = reactive([
+    {
+        group1: "g1",
+        group2: "g2",
+        name: "g1g2n2",
+        show: true
+    },
+    {
+        group1: "g1",
+        group2: "g2",
+        name: "g1g2n2",
+        show: true
+    },
+    {
+        group1: "g2",
+        group2: "g1",
+        name: "g2g1n1",
+        show: true
+    },
+    {
+        group1: "g2",
+        group2: "g2",
+        name: "g2g2n2",
+        show: true
+    },
+]) -->
 <template>
     <div v-for="item in group" :key="item.id">
         <Collapse :="item"></Collapse>
